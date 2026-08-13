@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { MUNICIPIOS_CHOCO } from "@/lib/municipios";
 
 const URGENCIAS = [
   { value: "CRITICA", label: "🔴 Crítica - Peligro inmediato" },
@@ -16,7 +17,7 @@ export default function NecesitoAyuda() {
   const [form, setForm] = useState({
     nombre: "",
     barrio: "",
-    ciudad: "Quibdó",
+    municipio: "Quibdó",
     telefono: "",
     necesidades: "",
     urgencia: "URGENTE",
@@ -94,6 +95,24 @@ export default function NecesitoAyuda() {
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">
+              Municipio *
+            </label>
+            <select
+              name="municipio"
+              value={form.municipio}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition-colors"
+            >
+              {MUNICIPIOS_CHOCO.map((m) => (
+                <option key={m} value={m} className="bg-slate-800">
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">
               Barrio / Vereda *
             </label>
             <input
@@ -103,19 +122,6 @@ export default function NecesitoAyuda() {
               required
               className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition-colors"
               placeholder="Ej: Santa Cruz"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">
-              Ciudad
-            </label>
-            <input
-              name="ciudad"
-              value={form.ciudad}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition-colors"
-              placeholder="Quibdó"
             />
           </div>
 

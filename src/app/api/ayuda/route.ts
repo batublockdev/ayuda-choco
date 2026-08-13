@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const { nombre, barrio, ciudad, telefono, necesidades, urgencia, lat, lng } = body;
+    const { nombre, barrio, municipio, telefono, necesidades, urgencia, lat, lng } = body;
 
     if (!nombre || !barrio || !necesidades) {
       return NextResponse.json(
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       data: {
         nombre,
         barrio,
-        ciudad: ciudad || "Quibdó",
+        municipio: municipio || "Quibdó",
         telefono: telefono || null,
         necesidades,
         urgencia: urgencia || "URGENTE",

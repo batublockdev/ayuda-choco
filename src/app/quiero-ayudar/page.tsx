@@ -16,7 +16,7 @@ interface Ayuda {
   id: string;
   nombre: string;
   barrio: string;
-  ciudad: string;
+  municipio: string;
   telefono: string | null;
   necesidades: string;
   urgencia: "CRITICA" | "URGENTE" | "MODERADA";
@@ -199,7 +199,7 @@ export default function QuieroAyudar() {
                           {ayuda.nombre}
                         </h3>
                         <p className="text-sm text-slate-400">
-                          📍 {ayuda.barrio}, {ayuda.ciudad}
+                          📍 {ayuda.barrio}, {ayuda.municipio}
                         </p>
                       </div>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${estilo.bg} ${estilo.text}`}>

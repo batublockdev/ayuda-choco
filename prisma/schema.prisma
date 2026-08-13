@@ -10,7 +10,7 @@ model Ayuda {
   id            String        @id @default(cuid())
   nombre        String
   barrio        String
-  ciudad        String        @default("Quibdó")
+  municipio     String        @default("Quibdó")
   telefono      String?
   necesidades   String
   urgencia      Urgencia      @default(URGENTE)
