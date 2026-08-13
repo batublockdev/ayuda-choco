@@ -26,16 +26,16 @@ interface Ayuda {
 }
 
 const URGENCIA_STYLES: Record<string, { bg: string; text: string; label: string }> = {
-  CRITICA: { bg: "bg-red-100", text: "text-red-700", label: "🔴 Crítica" },
-  URGENTE: { bg: "bg-orange-100", text: "text-orange-700", label: "🟠 Urgente" },
-  MODERADA: { bg: "bg-yellow-100", text: "text-yellow-700", label: "🟡 Moderada" },
+  CRITICA: { bg: "bg-rose-500/15", text: "text-rose-400", label: "🔴 Crítica" },
+  URGENTE: { bg: "bg-orange-500/15", text: "text-orange-400", label: "🟠 Urgente" },
+  MODERADA: { bg: "bg-amber-500/15", text: "text-amber-400", label: "🟡 Moderada" },
 };
 
 function Stars({ count, size = "text-sm" }: { count: number; size?: string }) {
   return (
     <span className={size}>
-      {"★".repeat(count)}
-      <span className="text-slate-300">{"★".repeat(5 - count)}</span>
+      <span className="text-amber-400">{"★".repeat(count)}</span>
+      <span className="text-slate-600">{"★".repeat(5 - count)}</span>
     </span>
   );
 }
@@ -119,28 +119,28 @@ export default function QuieroAyudar() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-slate-50">
+      <main className="min-h-screen flex items-center justify-center bg-slate-950">
         <div className="text-center space-y-3">
           <div className="animate-spin text-5xl">⏳</div>
-          <p className="text-slate-600">Cargando solicitudes...</p>
+          <p className="text-slate-400">Cargando solicitudes...</p>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8">
+    <main className="min-h-screen bg-slate-950 px-4 py-8">
       <div className="max-w-2xl mx-auto space-y-6">
         <button
           onClick={() => router.push("/")}
-          className="text-slate-500 hover:text-slate-700 text-sm flex items-center gap-1"
+          className="text-slate-400 hover:text-white text-sm flex items-center gap-1 transition-colors"
         >
           ← Volver
         </button>
 
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-emerald-600">❤️ Quiero Ayudar</h1>
-          <p className="text-slate-600">
+          <h1 className="text-3xl font-bold text-emerald-400">❤️ Quiero Ayudar</h1>
+          <p className="text-slate-400">
             {pendientes} {pendientes === 1 ? "persona necesita" : "personas necesitan"} ayuda ahora mismo
           </p>
         </div>
@@ -157,8 +157,8 @@ export default function QuieroAyudar() {
               onClick={() => setFiltro(f.value)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                 filtro === f.value
-                  ? "bg-emerald-600 text-white shadow-md"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
+                  ? "bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/30"
+                  : "bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white"
               }`}
             >
               {f.label}
@@ -187,18 +187,18 @@ export default function QuieroAyudar() {
               return (
                 <div
                   key={ayuda.id}
-                  className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden ${
-                    ayuda.ayudado ? "opacity-60" : ""
+                  className={`bg-slate-900 rounded-2xl shadow-lg border border-slate-800 overflow-hidden ${
+                    ayuda.ayudado ? "opacity-50" : ""
                   }`}
                 >
                   <div className="p-5 space-y-3">
                     {/* Header */}
                     <div className="flex items-start justify-between gap-2">
                       <div className="space-y-1">
-                        <h3 className="font-semibold text-slate-900 text-lg">
+                        <h3 className="font-semibold text-white text-lg">
                           {ayuda.nombre}
                         </h3>
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-slate-400">
                           📍 {ayuda.barrio}, {ayuda.ciudad}
                         </p>
                       </div>
@@ -209,19 +209,19 @@ export default function QuieroAyudar() {
 
                     {/* Verificación promedio */}
                     {verifs.length > 0 && (
-                      <div className="flex items-center gap-2 bg-amber-50 rounded-lg px-3 py-2">
-                        <span className="text-amber-500 text-lg font-bold">{promedio.toFixed(1)}</span>
+                      <div className="flex items-center gap-2 bg-amber-500/10 rounded-lg px-3 py-2 border border-amber-500/20">
+                        <span className="text-amber-400 text-lg font-bold">{promedio.toFixed(1)}</span>
                         <Stars count={Math.round(promedio)} size="text-base" />
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-slate-400">
                           ({verifs.length} {verifs.length === 1 ? "verificación" : "verificaciones"})
                         </span>
                       </div>
                     )}
 
                     {/* Necesidades */}
-                    <div className="bg-slate-50 rounded-xl p-3">
+                    <div className="bg-slate-800 rounded-xl p-3 border border-slate-700/50">
                       <p className="text-xs font-medium text-slate-500 mb-1">NECESIDADES</p>
-                      <p className="text-slate-800">{ayuda.necesidades}</p>
+                      <p className="text-slate-200">{ayuda.necesidades}</p>
                     </div>
 
                     {/* Contacto */}
@@ -230,7 +230,7 @@ export default function QuieroAyudar() {
                         href={`https://wa.me/57${ayuda.telefono.replace(/\s/g, "")}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block w-full py-2.5 px-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl text-center font-medium text-sm transition-colors"
+                        className="block w-full py-2.5 px-4 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl text-center font-medium text-sm transition-colors border border-emerald-500/20"
                       >
                         📱 Contactar por WhatsApp: {ayuda.telefono}
                       </a>
@@ -238,13 +238,13 @@ export default function QuieroAyudar() {
 
                     {/* Estado */}
                     {ayuda.ayudado ? (
-                      <div className="flex items-center justify-center gap-2 py-2 text-emerald-600 font-medium">
+                      <div className="flex items-center justify-center gap-2 py-2 text-emerald-400 font-medium">
                         ✅ Ayuda entregada
                       </div>
                     ) : (
                       <button
                         onClick={() => marcarAyudado(ayuda.id)}
-                        className="w-full py-2.5 px-4 bg-slate-100 hover:bg-emerald-100 hover:text-emerald-700 text-slate-600 rounded-xl text-sm font-medium transition-colors"
+                        className="w-full py-2.5 px-4 bg-slate-800 hover:bg-emerald-500/20 hover:text-emerald-400 text-slate-300 rounded-xl text-sm font-medium transition-colors border border-slate-700"
                       >
                         Marcar como ayudado ✓
                       </button>
@@ -253,11 +253,11 @@ export default function QuieroAyudar() {
                     {/* Verificación toggle */}
                     <button
                       onClick={() => setExpandedId(isExpanded ? null : ayuda.id)}
-                      className="w-full py-2.5 px-4 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-xl text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                      className="w-full py-2.5 px-4 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-xl text-sm font-medium transition-colors flex items-center justify-center gap-2 border border-amber-500/20"
                     >
                       ⭐ {isExpanded ? "Ocultar verificaciones" : "Verificar / Ver verificaciones"}
                       {verifs.length > 0 && (
-                        <span className="bg-amber-200 text-amber-800 rounded-full px-2 py-0.5 text-xs">
+                        <span className="bg-amber-500/20 text-amber-300 rounded-full px-2 py-0.5 text-xs">
                           {verifs.length}
                         </span>
                       )}
@@ -265,19 +265,19 @@ export default function QuieroAyudar() {
 
                     {/* Verificaciones expandidas */}
                     {isExpanded && (
-                      <div className="space-y-3 pt-2 border-t border-slate-100">
+                      <div className="space-y-3 pt-2 border-t border-slate-800">
                         {/* Lista de verificaciones */}
                         {verifs.length > 0 && (
                           <div className="space-y-2">
                             <p className="text-xs font-medium text-slate-500">VERIFICACIONES</p>
                             {verifs.map((v) => (
-                              <div key={v.id} className="bg-slate-50 rounded-xl p-3 space-y-1">
+                              <div key={v.id} className="bg-slate-800 rounded-xl p-3 space-y-1 border border-slate-700/50">
                                 <div className="flex items-center justify-between">
-                                  <span className="font-medium text-sm text-slate-700">{v.nombre}</span>
+                                  <span className="font-medium text-sm text-slate-200">{v.nombre}</span>
                                   <Stars count={v.estrellas} />
                                 </div>
-                                <p className="text-sm text-slate-600">{v.comentario}</p>
-                                <p className="text-xs text-slate-400">
+                                <p className="text-sm text-slate-400">{v.comentario}</p>
+                                <p className="text-xs text-slate-600">
                                   {new Date(v.createdAt).toLocaleDateString("es-CO", {
                                     day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
                                   })}
@@ -288,20 +288,20 @@ export default function QuieroAyudar() {
                         )}
 
                         {/* Formulario de verificación */}
-                        <div className="bg-amber-50 rounded-xl p-4 space-y-3">
-                          <p className="text-sm font-medium text-amber-800">✓ Verificar a esta persona</p>
-                          <p className="text-xs text-slate-500">¿Conoces a esta persona? ¿Es real su solicitud? Comparte tu experiencia.</p>
+                        <div className="bg-amber-500/5 rounded-xl p-4 space-y-3 border border-amber-500/20">
+                          <p className="text-sm font-medium text-amber-400">✓ Verificar a esta persona</p>
+                          <p className="text-xs text-slate-400">¿Conoces a esta persona? ¿Es real su solicitud? Comparte tu experiencia.</p>
                           
                           <input
                             type="text"
                             placeholder="Tu nombre"
                             value={verifForm.nombre}
                             onChange={(e) => setVerifForm({ ...verifForm, nombre: e.target.value })}
-                            className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-amber-400"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 text-sm outline-none focus:ring-2 focus:ring-amber-400 transition-colors"
                           />
 
                           <div>
-                            <label className="block text-xs text-slate-600 mb-1">Estrellas (1-5)</label>
+                            <label className="block text-xs text-slate-400 mb-1">Estrellas (1-5)</label>
                             <div className="flex gap-1">
                               {[1, 2, 3, 4, 5].map((n) => (
                                 <button
@@ -309,7 +309,7 @@ export default function QuieroAyudar() {
                                   type="button"
                                   onClick={() => setVerifForm({ ...verifForm, estrellas: n })}
                                   className={`text-2xl transition-transform hover:scale-110 ${
-                                    n <= verifForm.estrellas ? "text-amber-400" : "text-slate-300"
+                                    n <= verifForm.estrellas ? "text-amber-400" : "text-slate-700"
                                   }`}
                                 >
                                   ★
@@ -323,13 +323,13 @@ export default function QuieroAyudar() {
                             value={verifForm.comentario}
                             onChange={(e) => setVerifForm({ ...verifForm, comentario: e.target.value })}
                             rows={3}
-                            className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 text-sm outline-none focus:ring-2 focus:ring-amber-400 resize-none transition-colors"
                           />
 
                           <button
                             onClick={() => submitVerificacion(ayuda.id)}
                             disabled={verificando}
-                            className="w-full py-2.5 bg-amber-500 hover:bg-amber-600 disabled:bg-slate-400 text-white rounded-xl text-sm font-medium transition-colors"
+                            className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-500 text-slate-950 rounded-xl text-sm font-medium transition-colors"
                           >
                             {verificando ? "Enviando..." : "Enviar verificación"}
                           </button>
@@ -338,7 +338,7 @@ export default function QuieroAyudar() {
                     )}
 
                     {/* Fecha */}
-                    <p className="text-xs text-slate-400 text-right">
+                    <p className="text-xs text-slate-600 text-right">
                       {new Date(ayuda.createdAt).toLocaleDateString("es-CO", {
                         day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
                       })}
